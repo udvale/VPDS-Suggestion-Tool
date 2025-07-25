@@ -1,19 +1,17 @@
 "use client";
 
 import HeroSection from "@/components/HeroSection";
-import {useState, useId} from "react";
-import {
-  Button,
-  Input,
-  InputContainer,
-  InputMessage,
-  Label,
-  Utility,
-} from "@visa/nova-react";
+import {useState} from "react";
 
 export default function HomePage() {
   const [query, setQuery] = useState("");
-  const inputId = useId();
+
+  const suggestions = [
+    "login form",
+    "user profile page",
+    "admin dashboard",
+    "contact form",
+  ];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,33 +21,47 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <section className="min-h-[60vh] flex flex-col items-center justify-center px-6 py-4 text-white">
+      <section className="min-h-[40vh] flex flex-col items-center justify-center px-6 py-10">
+        <p className="text-base sm:text-lg mb-4 max-w-xl text-white">
+          Input below the type of component you are looking for :
+        </p>
         <form
           onSubmit={handleSubmit}
-          className="w-full max-w-lg bg-[#1A1F71] p-8 rounded-lg shadow-lg space-y-6"
+          className="w-full max-w-2xl  p-6 rounded-xl shadow-md flex flex-col items-center gap-6"
+          style={{backgroundColor: "var(--form-background)"}}
         >
-          <Utility vFlex vFlexCol vGap={4}>
-            <Label htmlFor={inputId}>Describe the UI you want:</Label>
-            <InputContainer>
-              <Input
-                id={inputId}
-                value={query}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setQuery(e.target.value)
-                }
-                placeholder="e.g., Login form with remember me"
-                aria-describedby={`${inputId}-description`}
-                className="w-full"
-              />
-            </InputContainer>
+          <div className="w-full flex gap-2">
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="e.g., Login form with remember me"
+              className="flex-1 p-3 rounded-md border border-gray-300 bg-white text-black"
+            />
+            <button
+              type="submit"
+              className="bg-[#0f2595] text-white px-4.5 py-2 rounded-lg transition"
+              // style={{backgroundColor: "var(--visa-green)"}}
+            >
+              Enter
+            </button>
+          </div>
 
-            <InputMessage id={`${inputId}-description`}>
-              For example: “form with email input and login button”
-            </InputMessage>
-          </Utility>
+          <p className="text-sm text-gray-700">
+            For example: “form with email input and login button”
+          </p>
 
-          <div className="text-center">
-            <Button type="submit">Suggest Components</Button>
+          <div className="flex flex-wrap gap-2 justify-center">
+            {suggestions.map((text) => (
+              <button
+                key={text}
+                type="button"
+                onClick={() => setQuery(text)}
+                className="px-3 py-1 rounded-md text-sm bg-white text-black border border-gray-300 hover:bg-gray-100 transition"
+              >
+                {text}
+              </button>
+            ))}
           </div>
         </form>
       </section>
