@@ -1,10 +1,11 @@
 "use client";
-
 import HeroSection from "@/components/HeroSection";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 
 export default function HomePage() {
   const [query, setQuery] = useState("");
+  const [result, setResult] = useState<string | null>(null);
+  const [components, setComponents] = useState<any[]>([]);
 
   const suggestions = [
     "login form",
@@ -15,7 +16,26 @@ export default function HomePage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Submitted query:", query);
+    setComponents([]);
+    fetch("http://localhost:8000/api/suggest", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({query}),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          setComponents(data.components);
+        } else {
+          setComponents([]);
+        }
+      })
+      .catch((err) => {
+        console.error("Error:", err);
+        setComponents([]);
+      });
   };
 
   return (
@@ -64,6 +84,40 @@ export default function HomePage() {
             ))}
           </div>
         </form>
+        {components.length > 0 && (
+          <div className="mt-6 max-w-4xl w-full bg-white text-black p-6 rounded-lg shadow space-y-6">
+            <h3 className="text-xl font-bold">🔧 Suggested Components:</h3>
+            {components.map((comp, idx) => (
+              <div key={idx} className="border-t border-gray-200 pt-4">
+                <h4 className="text-lg font-semibold mb-2">{comp.name}</h4>
+                <p className="text-sm text-gray-600 mb-2">{comp.description}</p>
+                <div className="space-y-4">
+                  {comp.variants.map((variant: any, i: number) => (
+                    <div key={i}>
+                      <p className="text-sm font-medium mb-1">{variant.name}</p>
+                      {/* <pre className="bg-gray-100 p-3 rounded text-sm overflow-x-auto">
+                        <code>{variant.code}</code>
+                      </pre> */}
+                      <div className="relative">
+                        <button
+                          onClick={() =>
+                            navigator.clipboard.writeText(variant.code)
+                          }
+                          className="absolute top-2 right-2 text-xs bg-[#0f2595] text-white px-2 py-1 rounded hover:bg-[#1a3fc0] transition"
+                        >
+                          Copy
+                        </button>
+                        <pre className="bg-gray-100 p-3 rounded text-sm overflow-x-auto whitespace-pre-wrap">
+                          <code>{variant.code}</code>
+                        </pre>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </section>
     </>
   );

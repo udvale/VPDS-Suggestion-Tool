@@ -16,8 +16,18 @@ const HeroSection = (): React.ReactElement => {
         Having a component suggestion tool can help you build faster and more
         consistent user interfaces with the{" "}
         <span className="text-[#F7B600] font-semibold underline">
-          <Link href="https://design.visa.com/">
+          <Link href="https://design.visa.com/" target="_blank" rel="noopener noreferrer">
             Visa Product Design System
+          </Link>
+        </span>
+        . Currently consists of <strong>33</strong> relevant components for you
+        to use in your React project.
+      </p>
+      <p className="text-lg sm:text-xl max-w-2xl mb-4 text-white/90">
+        If you are looking for icons, please visit:{" "}
+        <span className="text-[#F7B600] font-semibold">
+          <Link href="https://design.visa.com/components/icons-illustrations/" target="_blank" rel="noopener noreferrer">
+            Visa Icons library
           </Link>
         </span>
         .
