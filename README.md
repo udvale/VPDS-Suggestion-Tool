@@ -1,19 +1,25 @@
 # 💡 VPDS Component Suggestion Tool (Frontend)
 
-This is the frontend of the **Visa Product Design System (VPDS) Suggestion Tool**, a web app that allows users to input a query (e.g., "login form with email input") and receive a generated JSX code snippet using components from Visa's design system.
+This is the frontend of the **Visa Product Design System (VPDS) Suggestion Tool**, a web app that allows users to input a query (e.g., "login form with email input") and receive a generated JSX code snippet using components from Visa's design system. 
+(Soon will add class diagram)
 
-The frontend is built with **Next.js (App Router)**, **TypeScript**, and styled using **Tailwind CSS** along with **Nova React Components** from Visa. Communicates with the backend at: https://github.com/udvale/vpds-rec-backend
+Communicates with the backend at: https://github.com/udvale/vpds-rec-backend
 
 ---
 
 ## Features
-- ⚡️ Input UI for freeform component descriptions
-- 🧠 Fetches generated component suggestions from the backend (AI or rule-based)
-- 📦 Uses actual VPDS components for preview (Nova UI)
+- Input UI for freeform component descriptions
+- Fetches generated component suggestions from the backend (AI or rule-based)
 - 📋 Displays both:
   - The list of components used
-  - The JSX snippet for copy-paste usage
-- 🧪 Handles errors and loading gracefully
+  - The TSX snippet for copy-paste usage
+
+---
+
+## Assumptions
+- The prototype uses 33 Nova React components (hand‑picked, each with 1‑3 showcase variants). 
+- For every query we run a lightweight semantic scorer (retriever.py). It token‑matches the query against each component’s name, description, and tags, adds small bonuses for UI‑pattern cues (“login”, “form”, etc.), then returns the top‑3 ranked components (k = 3).
+- Try GPT‑4o‑mini for smart merge, fall back to regex; if code passes a quick sanity check, save to cache for next time.
 
 ---
 
@@ -27,19 +33,6 @@ The frontend is built with **Next.js (App Router)**, **TypeScript**, and styled 
 | **@visa/nova-react** | Official VPDS component library from Visa for real-world component usage |
 | **Vercel**           | Hosting platform for frontend deployment                              |
 
----
-
-## 📁 Project Structure
-```├── app/ # Next.js pages and routing (App Router)
-│ └── page.tsx # Main UI page with query input and display
-├── components/ # Custom reusable components
-│ ├── HeroSection.tsx # Header/hero banner
-│ ├── ComponentList.tsx # Displays components used
-│ └── CodeBlock.tsx # Shows syntax-highlighted JSX snippet
-├── public/ # Static assets (if any)
-├── styles/ # Global styling (if extended)
-└── tailwind.config.js # Tailwind setup
-```
 
 ---
 
@@ -62,4 +55,10 @@ npm run dev
 http://localhost:3000
 ```
 
+---
+
+## AI Usage
+Used Curser.ai and Claude.ai for debugging and logic handling for the back-end. 
+
+---
 
