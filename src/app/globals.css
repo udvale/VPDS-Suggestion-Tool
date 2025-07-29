@@ -6,6 +6,7 @@
   --foreground: #171717;
   --form-background: #0088c7;
   --visa-green: #327753;
+  --visa-light-green: #40996B;
   --visa-gold: #fcc015;
   --visa-red: #AD2929;
 }
@@ -31,3 +32,5 @@ body {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
 }
+
+
