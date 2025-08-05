@@ -4,8 +4,6 @@ This web app helps users generate TSX code snippets using **Visa Product Design 
 - A list of VPDS components used
 - A ready-to-copy TSX code snippet
 
-Backend repo: https://github.com/udvale/vpds-rec-backend
-
 ---
 
 ## My Approach
@@ -72,8 +70,31 @@ http://localhost:3000
 
 ---
 
-## AI Usage
-Used Curser.ai and Claude.ai for debugging and logic handling for the back-end. 
+# 💡 VPDS Component Suggestion Tool (Backend)
+
+The backend API for the **VPDS Component Suggestion Tool**, that allows users to input a natural language description and receive TSX code snippet. The backend interprets user intent and suggests appropriate component code by either:
+- Looking it up from a cached dataset (csv file) (for known patterns)
+- Or generating the result by combining known VPDS components
 
 ---
+
+## Tech Stack
+
+- **Python + FastAPI**: Chosen for its speed, simplicity, and modern async support. FastAPI allows clean routing, validation (via Pydantic), and scalability.
+- **CSV caching (`pattern-dataset.csv`)**: Allows storing previously seen query/code pairs so repeat queries return instantly.
+- **components.json**: A custom dataset mapping 33 component names to metadata and usage examples. Acts as the source of truth for generating JSX.
+- **Optional OpenAI integration**: If `OPENAI_API_KEY` is provided, the API can fall back to AI-based generation using gpt-4o-mini (not required for core functionality). Currently has limited tokenzation for query requests. 
+
+---
+
+## What does it do?
+
+- Accepts a plain English description (e.g., `"login form with remember me checkbox"`).
+- Checks if it already exists in a cache (CSV file).
+- If found, returns the TSX snippet and used VPDS components.
+- If not found, attempts to match against the internal pattern rules (or optionally generate via OpenAI).
+- Updates the CSV cache automatically with new patterns and results.
+
+ <img width="960" height="682" alt="image" src="https://github.com/user-attachments/assets/04d8849e-215d-4013-9809-59b15f13434f" />
+ 
 
