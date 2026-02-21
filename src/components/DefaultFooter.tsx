@@ -6,7 +6,7 @@ const DefaultFooter: React.FC = () => {
   return (
     <footer className="bg-customGray text-white py-4 mt-32">
       <div className="mx-auto max-w-screen-xl px-4 text-center">
-        <h2 className="text-3xl font-bold mb-2 flex justify-center items-center gap-3">
+        {/* <h2 className="text-3xl font-bold mb-2 flex justify-center items-center gap-3">
         <a
           href="https://github.com/udvale"
           target="_blank"
@@ -22,7 +22,10 @@ const DefaultFooter: React.FC = () => {
         >
           <FaEnvelope />
         </a>
-      </h2>
+      </h2> */}
+        <p className="text-gray-400 text-xs mb-1">
+          Built as a take-home project for Visa Product Design System
+        </p>
         <p className="text-gray-400 text-xs">All Rights Reserved © UE</p>
       </div>
     </footer>

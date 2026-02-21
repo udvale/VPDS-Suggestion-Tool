@@ -58,7 +58,6 @@ export default function CodeBlock({
 
         <div className="flex flex-col">
           <div className="flex">
-            {/* Line numbers */}
             <div className="bg-gray-800 px-4 py-6 text-gray-500 text-sm font-mono leading-relaxed select-none border-r border-gray-700 min-w-[3rem]">
               {codeLines.map((_, i) => (
                 <div key={i} className="text-right">
@@ -67,7 +66,6 @@ export default function CodeBlock({
               ))}
             </div>
 
-            {/* Code block */}
             <pre className="flex-1 p-6 text-sm overflow-x-auto text-gray-100 leading-relaxed font-mono bg-gray-900">
               <code className={`block whitespace-pre-wrap language-${language}`}>
                 {code}
